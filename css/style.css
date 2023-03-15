@@ -2914,3 +2914,9 @@ a {
 .color-section {
   background-color: #212529;
 }
+
+.newsletter {
+  color: #255BFE;
+  margin-top: 10px;
+  display: block;
+}

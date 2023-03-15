@@ -513,17 +513,38 @@
           </div>
           <div class="col-md-3">
             <h2 class="footer-heading mb-4">Subscribe Newsletter</h2>
-            <form action="#" method="post" class="footer-subscribe">
+            <form name="submit-to-google-sheet" action="#" method="post" class="footer-subscribe">
               <div class="input-group mb-3">
-                <input type="email" class="form-control border-secondary text-white bg-transparent"
+                <input type="email" class="form-control border-secondary text-white bg-transparent" name="email"
                   placeholder="Enter Email" aria-label="Enter Email" aria-describedby="button-addon2" required>
                 <div class="input-group-append">
-                   <button class="btn btn-primary text-black" type="button"
-                      id="button-addon2">Send</button>
+                  <button class="btn btn-primary text-black" type="submit" id="button-addon2">Send</button>
                 </div>
               </div>
+              <span class="newsletter" id="msg"></span>
             </form>
           </div>
+          <script>
+            const scriptURL =
+              '<https://script.google.com/macros/s/AKfycbzAfe3hqO7mwLyMf8A9jbNArRr7VgElKBC2XJKC1S3UMjan5cJTxETpHiF4rkc3jXY98w/exec>'
+            const form = document.forms['submit-to-google-sheet']
+            const msg = document.getElementById("msg")
+
+            form.addEventListener('submit', e => {
+              e.preventDefault()
+              fetch(scriptURL, {
+                  method: 'POST',
+                  body: new FormData(form)
+                })
+                .then(response => {msg.innerHTML="Thank you for Subscribing!!!"
+                setTimeout(function(){
+                  msg.innerHTML=""
+                }, 5000)
+                form.reset()
+               })
+                .catch(error => console.error('Error!', error.message))
+            })
+          </script>
         </div>
         <div class="row pt-5 mt-5 text-center">
           <div class="col-md-12">
